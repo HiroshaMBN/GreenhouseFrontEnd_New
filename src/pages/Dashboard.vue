@@ -99,13 +99,13 @@
               <i slot="title" class="tim-icons icon-settings-gear-63"></i>
               <a class="dropdown-item" href="#pablo">{{
                 $t("dashboard.dropdown.action")
-              }}</a>
+                }}</a>
               <a class="dropdown-item" href="#pablo">{{
                 $t("dashboard.dropdown.anotherAction")
-              }}</a>
+                }}</a>
               <a class="dropdown-item" href="#pablo">{{
                 $t("dashboard.dropdown.somethingElse")
-              }}</a>
+                }}</a>
             </base-dropdown>
           </template>
           <div class="table-full-width table-responsive">
@@ -144,52 +144,154 @@ export default {
     UserTable,
   },
   data() {
+    let airQualityDate = "";
+    let airQualityValue = "";
     return {
-      async fetchData() {
+
+      async getTemperatureData() {
         try {
-        const response = await axios.post('http://10.128.1.52:8000/api/auth/readTemperature',
-          {
-            // Request body data if needed
-            "date": "2025-02-28",
-            "time": "10:00:00",
-            "type": ""
-          },
-          {
-            headers: {
-              'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5ZTc2YTVjYi1lMjNmLTRiMzktODljMy00YzQ2ODg2NjYwY2YiLCJqdGkiOiI2MjBkMTRkNDczNTEyOWI1Y2RmMWI5ZmUzMWQ5MDJhNDQwYzQ2MzhlNzY5ZTc5NTBhNDQwZmZjYzdmMzBkZWM1YTU1NDk3MGYyZDJiZGZhNSIsImlhdCI6MTc0MjMyNDI2MC4wNTkwNjQsIm5iZiI6MTc0MjMyNDI2MC4wNTkwNzEsImV4cCI6MTc0NTAwMjY1OS45OTIwODQsInN1YiI6IjEiLCJzY29wZXMiOlsicmVhZC1wcm9maWxlIl19.Anae6vVe30d0TB95XlhBYi2XrlbmpUzwP7GWNn4s908CoZrnt4ELSc9uiabnX7jQTgcXdZX_3vZJsnfl1s1oTUMHJ4vGeWWpMN1oqqwyRJV-ICKIPBhBykrfwZZDHQXFO0x4I9WKa-5VyKlg7EtMINEXKplTorQn7zEhitwGChXXZ4Q69oxwaYcLbO_2q1YJqFwcBUnpajvJnTXTb_ALpUdf5HRxpv2bDX5rztQD3_9aFy0_tklcJMR-u64_AwTtOTYStOW0PlPWyHhDqZ15q5SarOohbpk4sGphSwaje4nqdURaDSbqBS00abd1RP1OAOLuxZCgqksyNksBPOZgTYjKa6_5M2c3eGEfbDksTBGqMRiyxSZzItV3p0LtzZx-KVCUBcq2S86hNmcQmLnXX3ha9MDRyA2Bbj25E5TOUIUgxOe3tHUTC-nUelEFTj5Z5o77Uj0E72K8uErHoILF3EpiScIL6sgAwZ4Aus96Y1Dv86khEg4mA3bw49IcvKDuXuWpEqd-dgeZMN9tbelti_Rfjp2Kpwh_x_Q9Ux2QvBWH-Knd7h1FygVEn341nBLBaRdnd_pSBxi48lTDmJ7Fg2YA3vkLPY8yJbUhDSF9U1TefZcNanC1PPkZa6OlHO0csRXrVUp1Zaf-M_dVgFTdzLTsqCImVzxTSS1jIZXIbeI',
-              'Content-Type': 'application/json'
+          const response = await axios.post('http://10.128.1.52:8000/api/auth/readTemperature',
+            {
+              // Request body data if needed
+              "date": "",
+              "time": "",
+              "type": ""
+            },
+            {
+              headers: {
+                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5ZTc2YTVjYi1lMjNmLTRiMzktODljMy00YzQ2ODg2NjYwY2YiLCJqdGkiOiI2MjBkMTRkNDczNTEyOWI1Y2RmMWI5ZmUzMWQ5MDJhNDQwYzQ2MzhlNzY5ZTc5NTBhNDQwZmZjYzdmMzBkZWM1YTU1NDk3MGYyZDJiZGZhNSIsImlhdCI6MTc0MjMyNDI2MC4wNTkwNjQsIm5iZiI6MTc0MjMyNDI2MC4wNTkwNzEsImV4cCI6MTc0NTAwMjY1OS45OTIwODQsInN1YiI6IjEiLCJzY29wZXMiOlsicmVhZC1wcm9maWxlIl19.Anae6vVe30d0TB95XlhBYi2XrlbmpUzwP7GWNn4s908CoZrnt4ELSc9uiabnX7jQTgcXdZX_3vZJsnfl1s1oTUMHJ4vGeWWpMN1oqqwyRJV-ICKIPBhBykrfwZZDHQXFO0x4I9WKa-5VyKlg7EtMINEXKplTorQn7zEhitwGChXXZ4Q69oxwaYcLbO_2q1YJqFwcBUnpajvJnTXTb_ALpUdf5HRxpv2bDX5rztQD3_9aFy0_tklcJMR-u64_AwTtOTYStOW0PlPWyHhDqZ15q5SarOohbpk4sGphSwaje4nqdURaDSbqBS00abd1RP1OAOLuxZCgqksyNksBPOZgTYjKa6_5M2c3eGEfbDksTBGqMRiyxSZzItV3p0LtzZx-KVCUBcq2S86hNmcQmLnXX3ha9MDRyA2Bbj25E5TOUIUgxOe3tHUTC-nUelEFTj5Z5o77Uj0E72K8uErHoILF3EpiScIL6sgAwZ4Aus96Y1Dv86khEg4mA3bw49IcvKDuXuWpEqd-dgeZMN9tbelti_Rfjp2Kpwh_x_Q9Ux2QvBWH-Knd7h1FygVEn341nBLBaRdnd_pSBxi48lTDmJ7Fg2YA3vkLPY8yJbUhDSF9U1TefZcNanC1PPkZa6OlHO0csRXrVUp1Zaf-M_dVgFTdzLTsqCImVzxTSS1jIZXIbeI',
+                'Content-Type': 'application/json'
+              }
+            }
+          );
+          // console.log(response.data);
+          let temperatureData = new Array().fill(null);
+          response.data.forEach(item => {
+            // console.log(item);
+
+            const monthIndex = item.created_at; // Get the month index from created_at (0 = Jan, 11 = Dec)
+            temperatureData[monthIndex] = item.created_at; // Place the temperature in the corresponding month slot
+            this.bigLineChart.allData[1] = item.temperature;
+            // this.bigLineChart.chartData.labels= item.created_at;
+
+            // console.log([item.created_at,item.temperature]);
+            // console.log([item.created_at,item.temperature]);
+            // console.log([item.created_at,item.temperature]);
+            // console.log(item.temperature);
+
+          });
+          // this.initBigChart(temperatureData);
+
+        } catch (error) {
+          console.log(error);
+        } finally {
+          //
+        }
+      },
+      async airQuality() {
+        try {
+          const airResponse = await axios.post('http://10.128.1.52:8000/api/auth/mq2AirQuality',
+            {
+              // Request body data if needed
+              "date": "",
+              "time": "",
+              "type": ""
+            },
+            {
+              headers: {
+                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5ZTc2YTVjYi1lMjNmLTRiMzktODljMy00YzQ2ODg2NjYwY2YiLCJqdGkiOiI2MjBkMTRkNDczNTEyOWI1Y2RmMWI5ZmUzMWQ5MDJhNDQwYzQ2MzhlNzY5ZTc5NTBhNDQwZmZjYzdmMzBkZWM1YTU1NDk3MGYyZDJiZGZhNSIsImlhdCI6MTc0MjMyNDI2MC4wNTkwNjQsIm5iZiI6MTc0MjMyNDI2MC4wNTkwNzEsImV4cCI6MTc0NTAwMjY1OS45OTIwODQsInN1YiI6IjEiLCJzY29wZXMiOlsicmVhZC1wcm9maWxlIl19.Anae6vVe30d0TB95XlhBYi2XrlbmpUzwP7GWNn4s908CoZrnt4ELSc9uiabnX7jQTgcXdZX_3vZJsnfl1s1oTUMHJ4vGeWWpMN1oqqwyRJV-ICKIPBhBykrfwZZDHQXFO0x4I9WKa-5VyKlg7EtMINEXKplTorQn7zEhitwGChXXZ4Q69oxwaYcLbO_2q1YJqFwcBUnpajvJnTXTb_ALpUdf5HRxpv2bDX5rztQD3_9aFy0_tklcJMR-u64_AwTtOTYStOW0PlPWyHhDqZ15q5SarOohbpk4sGphSwaje4nqdURaDSbqBS00abd1RP1OAOLuxZCgqksyNksBPOZgTYjKa6_5M2c3eGEfbDksTBGqMRiyxSZzItV3p0LtzZx-KVCUBcq2S86hNmcQmLnXX3ha9MDRyA2Bbj25E5TOUIUgxOe3tHUTC-nUelEFTj5Z5o77Uj0E72K8uErHoILF3EpiScIL6sgAwZ4Aus96Y1Dv86khEg4mA3bw49IcvKDuXuWpEqd-dgeZMN9tbelti_Rfjp2Kpwh_x_Q9Ux2QvBWH-Knd7h1FygVEn341nBLBaRdnd_pSBxi48lTDmJ7Fg2YA3vkLPY8yJbUhDSF9U1TefZcNanC1PPkZa6OlHO0csRXrVUp1Zaf-M_dVgFTdzLTsqCImVzxTSS1jIZXIbeI',
+                'Content-Type': 'application/json'
+              }
+            }
+          );
+
+          if (airResponse.data && Array.isArray(airResponse.data)) {
+          const labels = airResponse.data.map(item => item.day);
+          const dataValues = airResponse.data.map(item => item.value);
+            this.purpleLineChart.chartData={
+              labels: labels,
+              datasets: [
+                {
+
+              label: "Air quality Ppm",
+              fill: true,
+              borderColor: config.colors.primary,
+              borderWidth: 2,
+              borderDash: [],
+              borderDashOffset: 0.0,
+              pointBackgroundColor: config.colors.primary,
+              pointBorderColor: "rgba(255,255,255,0)",
+              pointHoverBackgroundColor: config.colors.primary,
+              pointBorderWidth: 20,
+              pointHoverRadius: 4,
+              pointHoverBorderWidth: 15,
+              pointRadius: 4,
+              data: dataValues,
+                  // label: "Ppm",
+
+                }
+              ]
             }
           }
-        );
-        // console.log(response.data);
-        let temperatureData = new Array().fill(null);
-      response.data.forEach(item => {
-        // console.log(item);
+          // console.log(this.purpleLineChart.chartData.datasets[0].data);
+        } catch (error) {
+          console.log(error);
+        } finally {
 
-          const monthIndex = item.created_at; // Get the month index from created_at (0 = Jan, 11 = Dec)
-          temperatureData[monthIndex] = item.temperature; // Place the temperature in the corresponding month slot
-          this.bigLineChart.allData[0] = temperatureData;
-          this.bigLineChart.chartData.labels= item.created_at;
-          // console.log(item.temperature);
+        }
+      },
+      async maxHumidityInMonthly() {
+        try {
+          const airResponse = await axios.post('http://10.128.1.52:8000/api/auth/maxHumidity',
+            {
+              // Request body data if needed
+              "date": "",
+              "time": "",
+              "type": ""
+            },
+            {
+              headers: {
+                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5ZTc2YTVjYi1lMjNmLTRiMzktODljMy00YzQ2ODg2NjYwY2YiLCJqdGkiOiI2MjBkMTRkNDczNTEyOWI1Y2RmMWI5ZmUzMWQ5MDJhNDQwYzQ2MzhlNzY5ZTc5NTBhNDQwZmZjYzdmMzBkZWM1YTU1NDk3MGYyZDJiZGZhNSIsImlhdCI6MTc0MjMyNDI2MC4wNTkwNjQsIm5iZiI6MTc0MjMyNDI2MC4wNTkwNzEsImV4cCI6MTc0NTAwMjY1OS45OTIwODQsInN1YiI6IjEiLCJzY29wZXMiOlsicmVhZC1wcm9maWxlIl19.Anae6vVe30d0TB95XlhBYi2XrlbmpUzwP7GWNn4s908CoZrnt4ELSc9uiabnX7jQTgcXdZX_3vZJsnfl1s1oTUMHJ4vGeWWpMN1oqqwyRJV-ICKIPBhBykrfwZZDHQXFO0x4I9WKa-5VyKlg7EtMINEXKplTorQn7zEhitwGChXXZ4Q69oxwaYcLbO_2q1YJqFwcBUnpajvJnTXTb_ALpUdf5HRxpv2bDX5rztQD3_9aFy0_tklcJMR-u64_AwTtOTYStOW0PlPWyHhDqZ15q5SarOohbpk4sGphSwaje4nqdURaDSbqBS00abd1RP1OAOLuxZCgqksyNksBPOZgTYjKa6_5M2c3eGEfbDksTBGqMRiyxSZzItV3p0LtzZx-KVCUBcq2S86hNmcQmLnXX3ha9MDRyA2Bbj25E5TOUIUgxOe3tHUTC-nUelEFTj5Z5o77Uj0E72K8uErHoILF3EpiScIL6sgAwZ4Aus96Y1Dv86khEg4mA3bw49IcvKDuXuWpEqd-dgeZMN9tbelti_Rfjp2Kpwh_x_Q9Ux2QvBWH-Knd7h1FygVEn341nBLBaRdnd_pSBxi48lTDmJ7Fg2YA3vkLPY8yJbUhDSF9U1TefZcNanC1PPkZa6OlHO0csRXrVUp1Zaf-M_dVgFTdzLTsqCImVzxTSS1jIZXIbeI',
+                'Content-Type': 'application/json'
+              }
+            }
+          );
+          if (airResponse.data && Array.isArray(airResponse.data)) {
+            const labels = airResponse.data.map(item => item.month);
+            const dataValues = airResponse.data.map(item => item.max_humidity);
 
-        });
-        // this.initBigChart(temperatureData);
+            this.greenLineChart.chartData = {
+              labels: labels,
+              datasets: [
+                {
+              label: "Humidity records",
+              fill: true,
+              borderColor: config.colors.danger,
+              borderWidth: 2,
+              borderDash: [],
+              borderDashOffset: 0.0,
+              pointBackgroundColor: config.colors.danger,
+              pointBorderColor: "rgba(255,255,255,0)",
+              pointHoverBackgroundColor: config.colors.danger,
+              pointBorderWidth: 20,
+              pointHoverRadius: 4,
+              pointHoverBorderWidth: 15,
+              pointRadius: 4,
+              data: dataValues,
+                }
+              ]
+            };
+          }
+        } catch (error) {
+          console.log(error);
 
-
-      // console.log('Updated chart data:', this.bigLineChart.allData);
-
-
-      } catch (error) {
-        console.log(error);
-      } finally {
-        //
-      }
-    },
+        }
+      },
       bigLineChart: {
         allData: [
-          // [100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 100],
-        //   [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120],
-        //   [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130],
+          [100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 100],
+          //   [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120],
+          //   [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130],
         ],
         activeIndex: 0,
         chartData: {
@@ -204,10 +306,10 @@ export default {
       purpleLineChart: {
         extraOptions: chartConfigs.purpleChartOptions,
         chartData: {
-          labels: ["JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+          labels: [],
           datasets: [
             {
-              label: "Data",
+              label: "Air quality Ppm",
               fill: true,
               borderColor: config.colors.primary,
               borderWidth: 2,
@@ -220,7 +322,9 @@ export default {
               pointHoverRadius: 4,
               pointHoverBorderWidth: 15,
               pointRadius: 4,
-              data: [80, 10, 11, 12, 3, 100],
+              data: []
+              // data: [80, 10, 11, 12, 3, 100],
+              // data: [100, 70, 90, 70, 85, 60],
             },
           ],
         },
@@ -230,10 +334,10 @@ export default {
       greenLineChart: {
         extraOptions: chartConfigs.greenChartOptions,
         chartData: {
-          labels: ["JUL", "AUG", "SEP", "OCT", "NOV"],
+          labels: [],
           datasets: [
             {
-              label: "My First dataset",
+              label: "Humidity records",
               fill: true,
               borderColor: config.colors.danger,
               borderWidth: 2,
@@ -246,7 +350,7 @@ export default {
               pointHoverRadius: 4,
               pointHoverBorderWidth: 15,
               pointRadius: 4,
-              data: [90, 27, 60, 12, 80],
+              data: [],
             },
           ],
         },
@@ -311,7 +415,7 @@ export default {
             data: this.bigLineChart.allData[index],
           },
         ],
-        labels: ["JAN","FEB", "MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC",],
+        labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC",],
       };
       this.$refs.bigChart.updateGradients(chartData);
       this.bigLineChart.chartData = chartData;
@@ -324,8 +428,10 @@ export default {
       this.i18n.locale = "ar";
       this.$rtl.enableRTL();
     }
-    this.initBigChart(0);
-    this.fetchData()
+    this.maxHumidityInMonthly(),
+      this.initBigChart(0);
+    this.getTemperatureData();
+    this.airQuality();
   },
   beforeDestroy() {
     if (this.$rtl.isRTL) {
