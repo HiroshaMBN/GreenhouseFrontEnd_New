@@ -1,272 +1,104 @@
 <template>
-  <card type="plain" title="Add Your GreenHouse in the Map">
-    <div id="map" class="map"></div>
-  </card>
+  <v-card>
+    <v-toolbar color="cyan" dark flat>
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+
+      <v-toolbar-title>Activities</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-dots-vertical</v-icon>
+      </v-btn>
+
+      <template v-slot:extension>
+        <v-tabs v-model="tab" align-with-title>
+          <v-tabs-slider color="yellow"></v-tabs-slider>
+
+          <v-tab v-for="(item, index) in items" :key="index">
+            {{ item.label }}
+          </v-tab>
+        </v-tabs>
+      </template>
+    </v-toolbar>
+
+    <v-tabs-items v-model="tab">
+      <v-tab-item v-for="(item, index) in items" :key="index">
+        <v-card flat>
+          <v-card-text>
+            <component :is="item.component"></component>
+          </v-card-text>
+        </v-card>
+      </v-tab-item>
+    </v-tabs-items>
+  </v-card>
 </template>
+
 <script>
+import axios from "axios";
+import temperature from './Thresholds/temperatureThresholds.vue';
+import humidity from './Thresholds/humidityThresholds.vue';
+import soil from './Thresholds/soilThresholds.vue';
+import airQuality from './Thresholds/airQualityThresholds.vue';
+let token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5ZTc2YTVjYi1lMjNmLTRiMzktODljMy00YzQ2ODg2NjYwY2YiLCJqdGkiOiI5ZGFlNjY5NjZlNzg0YjBjYWNkZTZhZDk3YzE5ZTExODIxMTAxNmRiMzAyYWYxMWUyOTcxYzY1ZjkzYWZjOWU1MGY3NDI0MzEzZjFmODFkMCIsImlhdCI6MTc0MzQzMTg4OS4yNTI3MDksIm5iZiI6MTc0MzQzMTg4OS4yNTI3MTYsImV4cCI6MTc0NjExMDI4OS4xNzQ4MzksInN1YiI6IjgiLCJzY29wZXMiOlsicmVhZC1wcm9maWxlIl19.OG-QCOoW_BzMiuFDkXLkwwISrX68mSpPl6zGhMrInelncZwVPPZTT4WJNUFhgyKYV9pemdx1Zg8n1tVkQa92ztswF08-3HSfUXyh0CdZMRqrUTEFKSlCvEYSW9RbILlDfi5cVz9wR_HAEDznNuDDK9zNqtA-OAaWq52wmt-mpYlzZERljknWi9lP26ZJppNtatFlC6GGSfixIJEHWxbuVeXNp2MCaUED1303-0qsBa3hjyk9otcj_CxWhiV8O36hUUjrZQ8WTk969_sIu0G8eAh5Gv7DJGcbR3IhZkaYMHETuJo79nXgtto9fj8wlTT1ThPKpB9JduMo3mD2Oh0OedfmIloOHXK1-A8g_o3Dq1gSHCZvA7pYLjkSLBSU7FAsPNUGMA6KxshMIPvRazK0zdBAqfFbElthZIWDu2Wyk1hVgKf4w5mWM3FQlHoX9mJxvHfhuMcQGSdvHeaCZgRbR_B0Qu0T0kVI1lxW_2Fu46FPr_Uy0Khh8YyXDmjj6a-MtrOSRdFwbnGYL2q5xqk6fF81cgj1L7ezIsNGFxQq4FMvUJ7lVI5N3JVl7kOwuQE-YSuKSSZKYUqn0yb2w5mfmLj94kG4PUU2yWP7MUwoGZSz1MRxTbpzrn5pTmVdBpUeTdTOv8Cw53CdqmAIWupmtxfsJ7EftxWwWi1D1Oqh5L0";
+
 export default {
-  mounted() {
-    let myLatlng = new window.google.maps.LatLng(40.748817, -73.985428);
-    let mapOptions = {
-      zoom: 13,
-      center: myLatlng,
-      scrollwheel: false, //we disable de scroll over the map, it is a really annoing when you scroll through page
-      styles: [
-        {
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#1d2c4d",
-            },
-          ],
-        },
-        {
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#8ec3b9",
-            },
-          ],
-        },
-        {
-          elementType: "labels.text.stroke",
-          stylers: [
-            {
-              color: "#1a3646",
-            },
-          ],
-        },
-        {
-          featureType: "administrative.country",
-          elementType: "geometry.stroke",
-          stylers: [
-            {
-              color: "#4b6878",
-            },
-          ],
-        },
-        {
-          featureType: "administrative.land_parcel",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#64779e",
-            },
-          ],
-        },
-        {
-          featureType: "administrative.province",
-          elementType: "geometry.stroke",
-          stylers: [
-            {
-              color: "#4b6878",
-            },
-          ],
-        },
-        {
-          featureType: "landscape.man_made",
-          elementType: "geometry.stroke",
-          stylers: [
-            {
-              color: "#334e87",
-            },
-          ],
-        },
-        {
-          featureType: "landscape.natural",
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#023e58",
-            },
-          ],
-        },
-        {
-          featureType: "poi",
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#283d6a",
-            },
-          ],
-        },
-        {
-          featureType: "poi",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#6f9ba5",
-            },
-          ],
-        },
-        {
-          featureType: "poi",
-          elementType: "labels.text.stroke",
-          stylers: [
-            {
-              color: "#1d2c4d",
-            },
-          ],
-        },
-        {
-          featureType: "poi.park",
-          elementType: "geometry.fill",
-          stylers: [
-            {
-              color: "#023e58",
-            },
-          ],
-        },
-        {
-          featureType: "poi.park",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#3C7680",
-            },
-          ],
-        },
-        {
-          featureType: "road",
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#304a7d",
-            },
-          ],
-        },
-        {
-          featureType: "road",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#98a5be",
-            },
-          ],
-        },
-        {
-          featureType: "road",
-          elementType: "labels.text.stroke",
-          stylers: [
-            {
-              color: "#1d2c4d",
-            },
-          ],
-        },
-        {
-          featureType: "road.highway",
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#2c6675",
-            },
-          ],
-        },
-        {
-          featureType: "road.highway",
-          elementType: "geometry.fill",
-          stylers: [
-            {
-              color: "#9d2a80",
-            },
-          ],
-        },
-        {
-          featureType: "road.highway",
-          elementType: "geometry.stroke",
-          stylers: [
-            {
-              color: "#9d2a80",
-            },
-          ],
-        },
-        {
-          featureType: "road.highway",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#b0d5ce",
-            },
-          ],
-        },
-        {
-          featureType: "road.highway",
-          elementType: "labels.text.stroke",
-          stylers: [
-            {
-              color: "#023e58",
-            },
-          ],
-        },
-        {
-          featureType: "transit",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#98a5be",
-            },
-          ],
-        },
-        {
-          featureType: "transit",
-          elementType: "labels.text.stroke",
-          stylers: [
-            {
-              color: "#1d2c4d",
-            },
-          ],
-        },
-        {
-          featureType: "transit.line",
-          elementType: "geometry.fill",
-          stylers: [
-            {
-              color: "#283d6a",
-            },
-          ],
-        },
-        {
-          featureType: "transit.station",
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#3a4762",
-            },
-          ],
-        },
-        {
-          featureType: "water",
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#0e1626",
-            },
-          ],
-        },
-        {
-          featureType: "water",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#4e6d70",
-            },
-          ],
-        },
+  methods: {
+
+    logItem(title) {
+      console.log("Selected Item:", title);
+    },
+    // async sensorData() {
+    //   let response = await axios.get('http://10.128.1.52:8000/api/auth/sensor_name',
+    //     {
+    //       headers: {
+    //         'Authorization': token,
+    //         'Content-Type': 'application/json'
+    //       }
+    //     })
+
+    //   let data = response.data; // Get the actual array
+    //   let returnData = data.map(item => item.name);
+    //   if (Array.isArray(data)) {
+    //     // Convert API data to dropdown format
+    //     const apiItems = data.map(item => ({ title: item.name }));
+    //     this.selectedSensor = apiItems.name;
+    //     // Merge with static dropdown items
+    //     this.items = [
+    //       ...apiItems,
+    //       // { title: "Humidity" },
+    //       // { title: "Air quality" },
+    //       // { title: "Soil moisture" },
+    //     ];
+    //   }
+    // },
+  },
+  async mounted() {
+    // this.sensorData();
+    // this.data();
+  },
+  data() {
+    return {
+      items: [],
+      tab: null,
+      items: [
+        { label: 'Temperature thresholds',component:temperature },
+        { label: 'Humidity thresholds',component:humidity },
+        { label: 'Soil level thresholds',component:soil },
+        { label: 'Air quality thresholds',component:airQuality },
+
+        // { label: 'System Logs', component: SystemActivity },
+        // { label: 'User Thresholds', component: Thresholds },
+        // { label: 'Update User Profile', component: UpdateUserProfile },
+        // { label: 'User Activation/Deactivation', component: UpdateUserProfile },
       ],
     };
-    let map = new window.google.maps.Map(
-      document.getElementById("map"),
-      mapOptions
-    );
-
-    let marker = new window.google.maps.marker.AdvancedMarkerElement({
-      position: myLatlng,
-      title: "Hello World!",
-    });
-
-    // To add the marker to the map, call setMap();
-    marker.setMap(map);
-  },
+  }
 };
 </script>
+
 <style></style>

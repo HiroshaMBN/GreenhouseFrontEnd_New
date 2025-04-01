@@ -1,6 +1,9 @@
 import DashboardLayout from "@/layout/dashboard/DashboardLayout.vue";
 // GeneralViews
 import NotFound from "@/pages/NotFoundPage.vue";
+// import { component } from "vue/types/umd.js";
+
+
 
 // Admin pages
 const Dashboard = () =>
@@ -10,13 +13,18 @@ const Profile = () =>
 const Notifications = () =>
   import(/* webpackChunkName: "common" */ "@/pages/Notifications.vue");
 const Icons = () =>
-  import(/* webpackChunkName: "common" */ "@/pages/Icons.vue");
+  import(/* webpackChunkName: "common" */ "@/pages/Manage.vue");
 const Maps = () => import(/* webpackChunkName: "common" */ "@/pages/Maps.vue");
 const Typography = () =>
   import(/* webpackChunkName: "common" */ "@/pages/Typography.vue");
 const TableList = () =>
-  import(/* webpackChunkName: "common" */ "@/pages/TableList.vue");
-
+  import(/* webpackChunkName: "common" */ "@/pages/Inventory.vue");
+const Calender =() =>
+  import("@/pages/Calender.vue");
+const RabbitMq =()=>
+    import("@/pages/RabbitMq/RabbitMqConfiguration.vue");
+const Login=()=>
+    import("@/pages/login/login.vue");
 const routes = [
   {
     path: "/",
@@ -58,6 +66,19 @@ const routes = [
         name: "table-list",
         component: TableList,
       },
+      {
+        path:"calender",
+        name: "calender",
+        component:Calender
+      },{
+        path:"rabbitMq",
+        name:"RabbitMQ Queue",
+        component:RabbitMq
+      },{
+        path:"login",
+        name:"user login",
+        component:Login
+      }
     ],
   },
   { path: "*", component: NotFound },

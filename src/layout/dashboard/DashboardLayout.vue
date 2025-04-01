@@ -14,7 +14,7 @@
         />
         <sidebar-link
           to="/maps"
-          :name="$t('sidebar.maps')"
+          :name="$t('THRESHOLDS')"
           icon="tim-icons icon-pin"
         />
         <sidebar-link
@@ -32,6 +32,16 @@
           :name="$t('sidebar.tableList')"
           icon="tim-icons icon-puzzle-10"
         />
+        <sidebar-link
+          to="/rabbitMq"
+          :name="$t('sidebar.rabbitMq')"
+          icon="tim-icons icon-vector"
+        />
+        <!-- <sidebar-link
+          to="/calender"
+          :name="$t('sidebar.calender')"
+          icon="tim-icons icon-puzzle-10"
+        /> -->
 
       </template>
     </side-bar>
@@ -50,6 +60,7 @@ import TopNavbar from "./TopNavbar.vue";
 import ContentFooter from "./ContentFooter.vue";
 import DashboardContent from "./Content.vue";
 import MobileMenu from "./MobileMenu";
+
 export default {
   components: {
     TopNavbar,

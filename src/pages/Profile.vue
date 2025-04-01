@@ -19,21 +19,21 @@ export default {
   data() {
     return {
       model: {
-        company: "Creative Code Inc.",
-        email: "mike@email.com",
-        username: "michael23",
-        firstName: "Mike",
-        lastName: "Andrew",
-        address: "Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09",
-        city: "Melbourne",
-        country: "Australia",
+        company: "GreenHouse Automation",
+        email: "malithhirosha@gmail.com",
+        username: "hirosha",
+        firstName: "hirosha",
+        lastName: "*",
+        address: "*",
+        city: "*",
+        country: "sri lanka",
         about:
-          "Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.",
+          "Advanced IOT automation platform",
       },
       user: {
-        fullName: "Mike Andrew",
+        fullName: "hirosha",
         title: "Ceo/Co-Founder",
-        description: `Do not be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...`,
+        description: `******`,
       },
     };
   },

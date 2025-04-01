@@ -2,7 +2,7 @@
   "dashboard": {
     "completedTasks": "Completed Tasks",
     "dailySales": "Daily Sales",
-    "performance": "GreenHouse Climate",
+    "performance": "GreenHouse Climate Temperature ℃",
     "simpleTable": "Simple Table",
     "totalShipments": "Total Shipments",
     "chartCategories": ["Climate Analysis","Temperature", "Humidity"],
@@ -108,9 +108,11 @@
     "icons": "Manage Greenhouse",
     "maps": "Maps",
     "notifications": "Notifications",
-    "userProfile": "User Profile",
-    "tableList": "Table List",
+    "userProfile": "Activities",
+    "tableList": "Inventory Management",
     "typography": "Typography",
-    "rtlSupport": "RTL Support"
+    "rtlSupport": "RTL Support",
+    "calender":"Calender",
+    "rabbitMq" : "RabbitMq Console"
   }
 }

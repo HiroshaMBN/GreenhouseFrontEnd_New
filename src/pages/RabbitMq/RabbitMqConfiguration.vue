@@ -3,7 +3,7 @@
     <v-toolbar color="cyan" dark flat>
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Activities</v-toolbar-title>
+      <v-toolbar-title>RabbitMq Configuration</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -38,6 +38,7 @@
   </v-card>
 </template>
 
+
 <script>
 // import WebComponent from './WebComponent.vue';
 // import ShoppingComponent from './ShoppingComponent.vue';
@@ -45,21 +46,28 @@
 // import ImagesComponent from './ImagesComponent.vue';
 // import NewsComponent from './NewsComponent.vue';
 // import EditProfileForm from '../Activities/'
-import UserActivity from '../Activities/UserActivity.vue';
-import SystemActivity from '../Activities/SystemActivity.vue';
-import Thresholds from '../Activities/Thresholds.vue';
-import UpdateUserProfile from '../Activities/UpdateUserProfile.vue';
-import UserActivation from '../Activities/UserActivation.vue';
+import userOverView from './RabbitMqActivities/OverView.vue'
+import connections from './RabbitMqActivities/Connections.vue'
+import channels from './RabbitMqActivities/AddChannels.vue'
+import exchange from './RabbitMqActivities/AddExchange.vue'
+import queue from './RabbitMqActivities/AddNewQueue.vue'
+import addUsers from './RabbitMqActivities/AddUsers.vue'
+import vHost from './RabbitMqActivities/AddVHosts.vue'
 export default {
   data() {
     return {
       tab: null,
       items: [
-        { label: 'User activity', component: UserActivity },
-        { label: 'System Logs', component: SystemActivity },
-        { label: 'System settings',  },
-        { label: 'Update User Profile', component: UpdateUserProfile },
-        { label: 'User Activation/Deactivation', component: UpdateUserProfile },
+        { label: 'Over view', component: userOverView },
+        { label: 'Connections', component: connections },
+        { label: 'Channels', component: channels },
+        { label: 'Exchanges', component: exchange },
+        { label: 'Queues', component: queue },
+        { label: 'Add users', component: addUsers },
+        { label: 'V host', component: vHost },
+
+
+
       ],
     };
   },

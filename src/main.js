@@ -12,20 +12,24 @@
 
  */
 import Vue from "vue";
+import Vuetify from 'vuetify';
+import 'vuetify/dist/vuetify.min.css';
 import VueRouter from "vue-router";
 import RouterPrefetch from "vue-router-prefetch";
 import App from "./App";
-// TIP: change to import router from "./router/starterRouter"; to start with a clean layout
 import router from "./router/index";
-
 import BlackDashboard from "./plugins/blackDashboard";
 import i18n from "./i18n";
 import "./registerServiceWorker";
+import 'vuetify/dist/vuetify.min.css'
+
 Vue.use(BlackDashboard);
 Vue.use(VueRouter);
 Vue.use(RouterPrefetch);
+Vue.use(Vuetify);
 new Vue({
   router,
   i18n,
   render: (h) => h(App),
+  vuetify: new Vuetify(),
 }).$mount("#app");
