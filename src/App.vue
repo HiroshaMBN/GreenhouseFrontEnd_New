@@ -6,7 +6,9 @@
 </template>
 
 <script>
+
 export default {
+
   methods: {
     disableRTL() {
       if (!this.$rtl.isRTL) {

@@ -14,7 +14,7 @@ const Notifications = () =>
   import(/* webpackChunkName: "common" */ "@/pages/Notifications.vue");
 const Icons = () =>
   import(/* webpackChunkName: "common" */ "@/pages/Manage.vue");
-const Maps = () => import(/* webpackChunkName: "common" */ "@/pages/Maps.vue");
+const Threshold = () => import(/* webpackChunkName: "common" */ "@/pages/Threshold.vue");
 const Typography = () =>
   import(/* webpackChunkName: "common" */ "@/pages/Typography.vue");
 const TableList = () =>
@@ -54,7 +54,7 @@ const routes = [
       {
         path: "maps",
         name: "maps",
-        component: Maps,
+        component: Threshold,
       },
       {
         path: "typography",

@@ -3,7 +3,7 @@
     <v-toolbar color="cyan" dark flat>
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Activities</v-toolbar-title>
+      <v-toolbar-title>Sensor Activities</v-toolbar-title>
 
       <v-spacer></v-spacer>
 

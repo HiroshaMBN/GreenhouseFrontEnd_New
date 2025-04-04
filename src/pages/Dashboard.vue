@@ -1,5 +1,13 @@
+<v-alert outlined type="warning" prominent border="left">
+  Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Suspendisse non nisl sit amet
+  velit hendrerit rutrum. Nullam vel sem. Pellentesque dapibus hendrerit tortor.
+</v-alert>
 <template>
+
+
+
   <div>
+
     <div class="row">
       <div class="col-12">
         <card type="chart">
@@ -11,6 +19,10 @@
                 </h5> -->
                 <h2 class="card-title">{{ $t("dashboard.performance") }}</h2>
               </div>
+
+
+
+
               <!-- <div class="col-sm-6">
                 <div class="btn-group btn-group-toggle" :class="isRTL ? 'float-left' : 'float-right'"
                   data-toggle="buttons">
@@ -47,10 +59,9 @@
             </h3>
           </template>
           <div class="chart-area">
-            <line-chart style="height: 100%"chart-id="airQualityChart"
-            :chart-data="lineChartForTemperature.chartData" :gradient-colors="bigLineChart.gradientColors"
-            :gradient-stops="bigLineChart.gradientStops" :extra-options="bigLineChart.extraOptions"
-            >
+            <line-chart style="height: 100%" chart-id="airQualityChart" :chart-data="lineChartForTemperature.chartData"
+              :gradient-colors="bigLineChart.gradientColors" :gradient-stops="bigLineChart.gradientStops"
+              :extra-options="bigLineChart.extraOptions">
 
             </line-chart>
 
@@ -68,10 +79,9 @@
             </h3>
           </template>
           <div class="chart-area">
-            <bar-chart style="height: 100%" chart-id="waterLevel"
-            :chart-data="lineChartForTemperature.chartData" :gradient-colors="bigLineChart.gradientColors"
-            :gradient-stops="bigLineChart.gradientStops" :extra-options="bigLineChart.extraOptions"
-            >
+            <bar-chart style="height: 100%" chart-id="waterLevel" :chart-data="lineChartForTemperature.chartData"
+              :gradient-colors="bigLineChart.gradientColors" :gradient-stops="bigLineChart.gradientStops"
+              :extra-options="bigLineChart.extraOptions">
 
 
             </bar-chart>
@@ -88,10 +98,9 @@
             </h3>
           </template>
           <div class="chart-area">
-            <line-chart style="height: 100%" chart-id="soilLevel"
-            :chart-data="lineChartForTemperature.chartData" :gradient-colors="bigLineChart.gradientColors"
-            :gradient-stops="bigLineChart.gradientStops" :extra-options="bigLineChart.extraOptions"
-            >
+            <line-chart style="height: 100%" chart-id="soilLevel" :chart-data="lineChartForTemperature.chartData"
+              :gradient-colors="bigLineChart.gradientColors" :gradient-stops="bigLineChart.gradientStops"
+              :extra-options="bigLineChart.extraOptions">
             </line-chart>
           </div>
         </card>
@@ -106,10 +115,9 @@
             </h3>
           </template>
           <div class="chart-area">
-            <line-chart style="height: 100%" chart-id="phLevel"
-            :chart-data="lineChartForTemperature.chartData" :gradient-colors="bigLineChart.gradientColors"
-            :gradient-stops="bigLineChart.gradientStops" :extra-options="bigLineChart.extraOptions"
-            >
+            <line-chart style="height: 100%" chart-id="phLevel" :chart-data="lineChartForTemperature.chartData"
+              :gradient-colors="bigLineChart.gradientColors" :gradient-stops="bigLineChart.gradientStops"
+              :extra-options="bigLineChart.extraOptions">
             </line-chart>
           </div>
         </card>
@@ -201,7 +209,8 @@ export default {
     let airQualityValue = "";
 
     return {
-
+      snackbar: false,
+      text: "Hello, I'm a snackbar",
       // async getTemperatureData() {
       //   try {
       //     const response = await axios.post('http://10.128.1.52:8000/api/auth/readTemperature',
@@ -319,386 +328,386 @@ export default {
 
 
     async lineChartForTemperature() {
-    try{
-      const temperature = await axios.post('http://10.128.1.52:8000/api/auth/readTemperature',
-        {
-          // Request body data if needed
-          "date": "",
-          "time": "",
-          "type": "%"
-        },
-        {
-          headers: {
-            'Authorization': token,
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-      // console.log(temperature.data[]);
-      if (temperature.data && Array.isArray(temperature.data)) {
-        const labels = temperature.data.map(item => item.created_at);
-        const dataValues = temperature.data.map(item => item.temperature);
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-          type: 'line',
-          data: {
-            labels: labels,
-            datasets: [{
-              label: 'Average Temperature In a Day',
-              data: dataValues,
-              backgroundColor: [
-                'rgba(255, 240, 243, 0.22)'
-
-              ],
-              borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-              ],
-              borderWidth: 1
-            }]
+      try {
+        const temperature = await axios.post('http://10.128.1.52:8000/api/auth/readTemperature',
+          {
+            // Request body data if needed
+            "date": "",
+            "time": "",
+            "type": "%"
           },
-          options: {
-            scales: {
-              yAxes: [{
-                ticks: {
-                  beginAtZero: true
-                }
-              }]
+          {
+            headers: {
+              'Authorization': token,
+              'Content-Type': 'application/json'
             }
           }
-        });
+        );
+        // console.log(temperature.data[]);
+        if (temperature.data && Array.isArray(temperature.data)) {
+          const labels = temperature.data.map(item => item.created_at);
+          const dataValues = temperature.data.map(item => item.temperature);
+          var ctx = document.getElementById('myChart').getContext('2d');
+          var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'Average Temperature In a Day',
+                data: dataValues,
+                backgroundColor: [
+                  'rgba(255, 240, 243, 0.22)'
+
+                ],
+                borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                ],
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }]
+              }
+            }
+          });
 
 
 
 
-      } else {
+        } else {
 
+        }
+
+      } catch (error) {
+        console.log(error);
       }
-
-    }catch(error){
-      console.log(error);
-    }
 
     },
     async airQuality() {
-      try{
+      try {
         const temperature = await axios.post('http://10.128.1.52:8000/api/auth/mq2AirQuality',
-        {
-          // Request body data if needed
-          "date": "",
-          "time": "",
-          "type": ""
-        },
-        {
-          headers: {
-            'Authorization': token,
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-      // console.log(temperature.data[]);
-      if (temperature.data && Array.isArray(temperature.data)) {
-        const labels = temperature.data.map(item => item.day);
-        const dataValues = temperature.data.map(item => item.value);
-
-        var ctx = document.getElementById('airQualityChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-          type: 'line',
-          data: {
-            labels: labels,
-            datasets: [{
-              label: 'Average Air Quality In a Day',
-              data: dataValues,
-              backgroundColor: [
-                'rgba(245, 74, 120, 0.2)'
-              ],
-              borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1
-            }]
+          {
+            // Request body data if needed
+            "date": "",
+            "time": "",
+            "type": ""
           },
-          options: {
-            scales: {
-              yAxes: [{
-                ticks: {
-                  beginAtZero: true
-                }
-              }]
+          {
+            headers: {
+              'Authorization': token,
+              'Content-Type': 'application/json'
             }
           }
-        });
-      } else {
+        );
+        // console.log(temperature.data[]);
+        if (temperature.data && Array.isArray(temperature.data)) {
+          const labels = temperature.data.map(item => item.day);
+          const dataValues = temperature.data.map(item => item.value);
 
-      }
-      }catch(error){
+          var ctx = document.getElementById('airQualityChart').getContext('2d');
+          var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'Average Air Quality In a Day',
+                data: dataValues,
+                backgroundColor: [
+                  'rgba(245, 74, 120, 0.2)'
+                ],
+                borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }]
+              }
+            }
+          });
+        } else {
+
+        }
+      } catch (error) {
         console.log(error);
       }
     },
     async waterStocks() {
-      try{
+      try {
         const temperature = await axios.post('http://10.128.1.52:8000/api/auth/mq2AirQuality',
-        {
-          // Request body data if needed
-          "date": "",
-          "time": "",
-          "type": ""
-        },
-        {
-          headers: {
-            'Authorization': token,
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-      // console.log(temperature.data[]);
-      if (temperature.data && Array.isArray(temperature.data)) {
-        const labels = temperature.data.map(item => item.day);
-        const dataValues = temperature.data.map(item => item.value);
-
-        var ctx = document.getElementById('waterLevel').getContext('2d');
-        var myChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: labels,
-            datasets: [{
-              label: 'Water Level In Tanks',
-              data: dataValues,
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1
-            }]
+          {
+            // Request body data if needed
+            "date": "",
+            "time": "",
+            "type": ""
           },
-          options: {
-            scales: {
-              yAxes: [{
-                ticks: {
-                  beginAtZero: true
-                }
-              }]
+          {
+            headers: {
+              'Authorization': token,
+              'Content-Type': 'application/json'
             }
           }
-        });
-      } else {
+        );
+        // console.log(temperature.data[]);
+        if (temperature.data && Array.isArray(temperature.data)) {
+          const labels = temperature.data.map(item => item.day);
+          const dataValues = temperature.data.map(item => item.value);
 
-      }
-      }catch(error){
+          var ctx = document.getElementById('waterLevel').getContext('2d');
+          var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'Water Level In Tanks',
+                data: dataValues,
+                backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }]
+              }
+            }
+          });
+        } else {
+
+        }
+      } catch (error) {
         console.log(error);
       }
     },
     async soilStatus() {
       try {
         const temperature = await axios.post('http://10.128.1.52:8000/api/auth/soilLevel',
-        {
-          // Request body data if needed
-          "date": "",
-          "time": "",
-          "type": ""
-        },
-        {
-          headers: {
-            'Authorization':token,
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-      // console.log(temperature.data[]);
-      if (temperature.data && Array.isArray(temperature.data)) {
-        const labels = temperature.data.map(item => item.created_at);
-        const dataValues = temperature.data.map(item => item.Level);
-        var ctx = document.getElementById('soilLevel').getContext('2d');
-        var myChart = new Chart(ctx, {
-          type: 'line',
-          data: {
-            labels: labels,
-            datasets: [{
-              label: 'Water Level In Tanks',
-              data: dataValues,
-              backgroundColor: [
-                'rgba(153, 102, 255, 0.2)',
-              ],
-              borderColor: [
-
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1
-            }]
+          {
+            // Request body data if needed
+            "date": "",
+            "time": "",
+            "type": ""
           },
-          options: {
-            scales: {
-              yAxes: [{
-                ticks: {
-                  beginAtZero: true
-                }
-              }]
+          {
+            headers: {
+              'Authorization': token,
+              'Content-Type': 'application/json'
             }
           }
-        });
-      } else {
+        );
+        // console.log(temperature.data[]);
+        if (temperature.data && Array.isArray(temperature.data)) {
+          const labels = temperature.data.map(item => item.created_at);
+          const dataValues = temperature.data.map(item => item.Level);
+          var ctx = document.getElementById('soilLevel').getContext('2d');
+          var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'Water Level In Tanks',
+                data: dataValues,
+                backgroundColor: [
+                  'rgba(153, 102, 255, 0.2)',
+                ],
+                borderColor: [
 
-      }
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }]
+              }
+            }
+          });
+        } else {
+
+        }
       } catch (error) {
         console.log(error.message);
       }
 
     },
     async phLevel() {
-    try{
-      const temperature = await axios.post('http://10.128.1.52:8000/api/auth/mq2AirQuality',
-        {
-          // Request body data if needed
-          "date": "",
-          "time": "",
-          "type": ""
-        },
-        {
-          headers: {
-            'Authorization':token,
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-      // console.log(temperature.data[]);
-      if (temperature.data && Array.isArray(temperature.data)) {
-        const labels = temperature.data.map(item => item.day);
-        const dataValues = temperature.data.map(item => item.value);
-
-        var ctx = document.getElementById('phLevel').getContext('2d');
-        var myChart = new Chart(ctx, {
-          type: 'line',
-          data: {
-            labels: labels,
-            datasets: [{
-              label: 'Water Level In Tanks',
-              data: dataValues,
-              backgroundColor: [
-                'rgba(252, 232, 8, 0.35)',
-              ],
-              borderColor: [
-
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1
-            }]
+      try {
+        const temperature = await axios.post('http://10.128.1.52:8000/api/auth/mq2AirQuality',
+          {
+            // Request body data if needed
+            "date": "",
+            "time": "",
+            "type": ""
           },
-          options: {
-            scales: {
-              yAxes: [{
-                ticks: {
-                  beginAtZero: true
-                }
-              }]
+          {
+            headers: {
+              'Authorization': token,
+              'Content-Type': 'application/json'
             }
           }
-        });
-      } else {
+        );
+        // console.log(temperature.data[]);
+        if (temperature.data && Array.isArray(temperature.data)) {
+          const labels = temperature.data.map(item => item.day);
+          const dataValues = temperature.data.map(item => item.value);
 
+          var ctx = document.getElementById('phLevel').getContext('2d');
+          var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'Water Level In Tanks',
+                data: dataValues,
+                backgroundColor: [
+                  'rgba(252, 232, 8, 0.35)',
+                ],
+                borderColor: [
+
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }]
+              }
+            }
+          });
+        } else {
+
+        }
+      } catch (error) {
+        console.log(error);
       }
-    }catch(error){
-      console.log(error);
-    }
     },
     async totalNotification() {
-     try{
-      const temperature = await axios.post('http://10.128.1.52:8000/api/auth/soilLevel',
-        {
-          // Request body data if needed
-          "date": "",
-          "time": "",
-          "type": ""
-        },
-        {
-          headers: {
-            'Authorization':token,
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-      // console.log(temperature.data[]);
-      if (temperature.data && Array.isArray(temperature.data)) {
-        // const labels = temperature.data.map(item => item.day);
-        // const dataValues = temperature.data.map(item => item.value);
-
-        var ctx = document.getElementById('notifications').getContext('2d');
-        var myChart = new Chart(ctx, {
-          type: 'pie',
-          data: {
-            labels: ["SMS", "Email"],
-            datasets: [{
-              // label: 'Water Level In Tanks',
-              data: [10, 60],
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-
-                'rgba(153, 102, 255, 0.2)',
-              ],
-              borderWidth: 0
-            }]
+      try {
+        const temperature = await axios.post('http://10.128.1.52:8000/api/auth/soilLevel',
+          {
+            // Request body data if needed
+            "date": "",
+            "time": "",
+            "type": ""
           },
-          options: {
-            scales: {
-              yAxes: [{
-                ticks: {
-                  beginAtZero: true
-                }
-              }]
+          {
+            headers: {
+              'Authorization': token,
+              'Content-Type': 'application/json'
             }
           }
-        });
-      } else {
+        );
+        // console.log(temperature.data[]);
+        if (temperature.data && Array.isArray(temperature.data)) {
+          // const labels = temperature.data.map(item => item.day);
+          // const dataValues = temperature.data.map(item => item.value);
 
+          var ctx = document.getElementById('notifications').getContext('2d');
+          var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+              labels: ["SMS", "Email"],
+              datasets: [{
+                // label: 'Water Level In Tanks',
+                data: [10, 60],
+                backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+
+                  'rgba(153, 102, 255, 0.2)',
+                ],
+                borderWidth: 0
+              }]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }]
+              }
+            }
+          });
+        } else {
+
+        }
+      } catch (error) {
+        console.log(error);
       }
-     }catch(error){
-      console.log(error);
-     }
     }
 
 
 
   },
- async mounted() {
+  async mounted() {
     // console.log("in dashboard");
     this.lineChartForTemperature();
     this.airQuality();

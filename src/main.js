@@ -22,11 +22,18 @@ import BlackDashboard from "./plugins/blackDashboard";
 import i18n from "./i18n";
 import "./registerServiceWorker";
 import 'vuetify/dist/vuetify.min.css'
-
+// import App from './App.vue';
+// import Toast from "vue-toastification";
+// import "vue-toastification/dist/index.css";
+Vue.use(Vuetify);
 Vue.use(BlackDashboard);
 Vue.use(VueRouter);
 Vue.use(RouterPrefetch);
-Vue.use(Vuetify);
+// Vue.use(Toast, {
+//   transition: "Vue-Toastification__bounce",
+//   maxToasts: 20,
+//   newestOnTop: true
+// });
 new Vue({
   router,
   i18n,
